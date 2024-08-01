@@ -26,7 +26,7 @@ class _SearchInputTextState extends State<SearchInputText> {
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: TextStyles.smallTextRegular.copyWith(
-              color: ColorStyles.primary100,
+              color: ColorStyles.gray4,
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
