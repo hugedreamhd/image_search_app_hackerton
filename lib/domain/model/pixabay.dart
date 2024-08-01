@@ -7,6 +7,7 @@ part 'pixabay.g.dart';
 @freezed
 class Pixabay with _$Pixabay {
   const factory Pixabay({
+    required num id,
     required String user,
     required String ImageUrl,
     required String tags,
