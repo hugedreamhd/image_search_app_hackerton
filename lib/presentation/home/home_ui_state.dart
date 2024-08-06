@@ -9,6 +9,7 @@ part 'home_ui_state.g.dart';
 class HomeUiState with _$HomeUiState {
   const factory HomeUiState({
     @Default('') String query,
+    @Default('') String error,
     @Default([]) List<Pixabay> images,
     @Default(false) bool isLoading,
   }) = _HomeUiState;
