@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:image_search_app_hackerton/presentation/home/home_view_model.dart';
 import 'package:image_search_app_hackerton/presentation/ui/color_styles.dart';
 import 'package:image_search_app_hackerton/presentation/ui/text_styles.dart';
+import 'package:provider/provider.dart';
 
 class SearchInputText extends StatelessWidget {
 //data
@@ -17,27 +19,63 @@ class SearchInputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: textEditingController,
-      onChanged: inputTitle,
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyles.smallTextRegular.copyWith(
-          color: ColorStyles.gray4,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: ColorStyles.primary100,
+    final viewModel = context.watch<HomeViewModel>();
+
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: ColorStyles.primary100),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: TextField(
+                    controller: textEditingController,
+                    // onChanged: inputTitle,
+                    onSubmitted: (query) => viewModel.searchImage(query),
+                    decoration: InputDecoration(
+                      hintText: hintText,
+                      hintStyle: TextStyles.smallTextRegular.copyWith(
+                        color: ColorStyles.gray4,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Icon(
+                    Icons.search,
+                    color: ColorStyles.primary100,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: ColorStyles.primary100,
-          ),
-        ),
-      ),
+      ],
     );
   }
 }
