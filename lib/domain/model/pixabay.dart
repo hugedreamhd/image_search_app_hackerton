@@ -9,6 +9,7 @@ class Pixabay with _$Pixabay {
   const factory Pixabay({
     required num id,
     required String user,
+    required String previewURL,
     required String ImageUrl,
     required String tags,
   }) = _Pixabay;
