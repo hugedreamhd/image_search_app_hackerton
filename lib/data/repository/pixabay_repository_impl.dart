@@ -1,4 +1,3 @@
-import 'package:image_search_app_hackerton/core/result.dart';
 import 'package:image_search_app_hackerton/data/data_source/pixabay_data_source.dart';
 import 'package:image_search_app_hackerton/data/mapper/pixabay_mapper.dart';
 import 'package:image_search_app_hackerton/domain/model/pixabay.dart';

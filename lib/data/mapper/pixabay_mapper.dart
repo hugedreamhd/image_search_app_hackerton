@@ -8,6 +8,7 @@ extension DtoToModel on Hits {
       ImageUrl: previewURL ?? '',
       tags: tags ?? '',
       user: user ?? '',
+      previewURL: previewURL ?? '',
     );
   }
 }
