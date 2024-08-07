@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_search_app_hackerton/presentation/component/search_input_text.dart';
 import 'package:image_search_app_hackerton/presentation/home/home_view_model.dart';
 import 'package:provider/provider.dart';
@@ -11,12 +12,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _textEdtingController = TextEditingController();
+  // final _textEdtingController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _textEdtingController.dispose();
+    // _textEdtingController.dispose();
   }
 
   @override
@@ -34,20 +35,21 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               SearchInputText(
                 hintText: 'Search',
-                textEditingController: _textEdtingController,
+                // textEditingController: _textEdtingController,
                 inputTitle: (String title) {
                   print('Searching for: $title');
                   viewModel.searchImage(title);
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
                 child: viewModel.state.isLoading
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 20,
                           mainAxisSpacing: 20,
@@ -57,28 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           final image = viewModel.state.images[index];
                           print('Image URL: ${image.previewURL}');
 
-                          return Image.network(
+                          return GestureDetector(
+                            onTap: () {
+                              context.push('/detail_screen', extra: image);
+                            },
+                            child: Image.network(
                               image.previewURL,
+                            ),
                           );
                         },
-                        // children: [
-                        //   Container(
-                        //     height: 50,
-                        //     width: 50,
-                        //     decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       color: Colors.black,
-                        //     ),
-                        //   ),
-                        //   Container(
-                        //     height: 50,
-                        //     width: 50,
-                        //     decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       color: Colors.red,
-                        //     ),
-                        //   ),
-                        // ],
                       ),
               ),
             ],

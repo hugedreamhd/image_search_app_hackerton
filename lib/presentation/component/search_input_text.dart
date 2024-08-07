@@ -4,9 +4,8 @@ import 'package:image_search_app_hackerton/presentation/ui/color_styles.dart';
 import 'package:image_search_app_hackerton/presentation/ui/text_styles.dart';
 import 'package:provider/provider.dart';
 
-class SearchInputText extends StatelessWidget {
+class SearchInputText extends StatefulWidget {
 //data
-  final TextEditingController textEditingController;
   final void Function(String) inputTitle;
   final String hintText;
 
@@ -14,8 +13,20 @@ class SearchInputText extends StatelessWidget {
     super.key,
     required this.inputTitle,
     required this.hintText,
-    required this.textEditingController,
   });
+
+  @override
+  State<SearchInputText> createState() => _SearchInputTextState();
+}
+
+class _SearchInputTextState extends State<SearchInputText> {
+  final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +45,15 @@ class SearchInputText extends StatelessWidget {
             children: [
               Expanded(
                 child: GestureDetector(
-                  onTap: () {
-                    FocusScope.of(context).unfocus();
-                  },
                   child: TextField(
                     controller: textEditingController,
                     // onChanged: inputTitle,
-                    onSubmitted: (query) => viewModel.searchImage(query),
+                    onSubmitted: (query) {
+                      viewModel.searchImage(query);
+                      FocusScope.of(context).unfocus();
+                    },
                     decoration: InputDecoration(
-                      hintText: hintText,
+                      hintText: widget.hintText,
                       hintStyle: TextStyles.smallTextRegular.copyWith(
                         color: ColorStyles.gray4,
                       ),
@@ -63,9 +74,13 @@ class SearchInputText extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () => FocusScope.of(context).unfocus(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                onTap: () {
+                  final query = textEditingController.text;
+                  viewModel.searchImage(query);
+                  FocusScope.of(context).unfocus();
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Icon(
                     Icons.search,
                     color: ColorStyles.primary100,
