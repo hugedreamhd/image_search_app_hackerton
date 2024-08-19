@@ -10,7 +10,7 @@ class Pixabay with _$Pixabay {
     required num id,
     required String user,
     required String previewURL,
-    required String ImageUrl,
+    required String imageUrl,
     required String tags,
   }) = _Pixabay;
 

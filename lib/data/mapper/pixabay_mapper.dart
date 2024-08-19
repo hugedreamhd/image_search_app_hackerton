@@ -5,7 +5,7 @@ extension DtoToModel on Hits {
   Pixabay toPixabayDto() {
     return Pixabay(
       id: id ?? 0,
-      ImageUrl: previewURL ?? '',
+      imageUrl: largeImageURL ?? '',
       tags: tags ?? '',
       user: user ?? '',
       previewURL: previewURL ?? '',

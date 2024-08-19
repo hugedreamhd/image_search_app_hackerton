@@ -12,12 +12,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // final _textEdtingController = TextEditingController();
+  final _textEditingController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    // _textEdtingController.dispose();
+    _textEditingController.dispose();
   }
 
   @override
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               SearchInputText(
                 hintText: 'Search',
-                // textEditingController: _textEdtingController,
+                textEditingController: _textEditingController,
                 inputTitle: (String title) {
                   print('Searching for: $title');
                   viewModel.searchImage(title);

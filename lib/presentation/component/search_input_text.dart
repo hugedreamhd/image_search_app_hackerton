@@ -4,8 +4,9 @@ import 'package:image_search_app_hackerton/presentation/ui/color_styles.dart';
 import 'package:image_search_app_hackerton/presentation/ui/text_styles.dart';
 import 'package:provider/provider.dart';
 
-class SearchInputText extends StatefulWidget {
+class SearchInputText extends StatelessWidget {
 //data
+  final TextEditingController textEditingController;
   final void Function(String) inputTitle;
   final String hintText;
 
@@ -13,20 +14,8 @@ class SearchInputText extends StatefulWidget {
     super.key,
     required this.inputTitle,
     required this.hintText,
+    required this.textEditingController,
   });
-
-  @override
-  State<SearchInputText> createState() => _SearchInputTextState();
-}
-
-class _SearchInputTextState extends State<SearchInputText> {
-  final TextEditingController textEditingController = TextEditingController();
-
-  @override
-  void dispose() {
-    textEditingController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +42,7 @@ class _SearchInputTextState extends State<SearchInputText> {
                       FocusScope.of(context).unfocus();
                     },
                     decoration: InputDecoration(
-                      hintText: widget.hintText,
+                      hintText: hintText,
                       hintStyle: TextStyles.smallTextRegular.copyWith(
                         color: ColorStyles.gray4,
                       ),
